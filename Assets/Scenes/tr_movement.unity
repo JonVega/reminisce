@@ -1004,7 +1004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc94585b6ae0475db17a9ecbee4b849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseLooking: {fileID: 2119131230}
 --- !u!114 &2119131230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,10 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4990a710329624e92b799debd83f2569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseX_sensitivity: 100
-  mouseY_sensitivity: 0.5
-  playerCamera: {fileID: 963194228}
-  x_clamp: 85
+  cam: {fileID: 963194227}
 --- !u!114 &2119131231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,6 +1030,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userSpeed: 5
+  gravity: -9.8
+  jump_height: 3
 --- !u!143 &2119131232
 CharacterController:
   m_ObjectHideFlags: 0

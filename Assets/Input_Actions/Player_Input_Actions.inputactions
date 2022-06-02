@@ -24,22 +24,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "mouseX",
-                    "type": "PassThrough",
-                    "id": "44f67728-7832-487c-94ba-0c481342aa2d",
-                    "expectedControlType": "Axis",
+                    "name": "look",
+                    "type": "Value",
+                    "id": "efb6d3a9-2044-491d-8b71-df1f03d7b1c4",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "mouseY",
-                    "type": "PassThrough",
-                    "id": "0adfa3bb-7e20-4097-b193-2a4091817ddf",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -133,45 +124,23 @@
                 },
                 {
                     "name": "",
-                    "id": "961df1d9-dd5e-42ab-8c0e-657e57895b2e",
-                    "path": "<Mouse>/delta/x",
+                    "id": "a9f9be09-bc30-45d4-9eee-2b26b4e3cbc6",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "mouseX",
+                    "action": "look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "30e7ecbf-50b1-48e7-ad13-9c315fa5aeaa",
-                    "path": "<Gamepad>/rightStick/x",
+                    "id": "8971305f-61e0-4548-9407-ca4e71083142",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "mouseX",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4360389b-2ac2-4448-bbed-edf44e6cb2a7",
-                    "path": "<Mouse>/delta/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "mouseY",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "689862e6-6f1d-4b9f-b540-6f0a3b491826",
-                    "path": "<Gamepad>/rightStick/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "mouseY",
+                    "action": "look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
