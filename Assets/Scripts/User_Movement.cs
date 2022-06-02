@@ -45,7 +45,7 @@ public class User_Movement : MonoBehaviour
     public void Sprint() {
         isSprinting = !isSprinting;
         if(isSprinting) {
-            userSpeed = 11.0f;
+            userSpeed = 12.0f;
         }
 
         else {
