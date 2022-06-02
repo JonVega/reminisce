@@ -53,6 +53,15 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""649943c4-b484-49ca-a9f1-980c44330091"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,28 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                     ""action"": ""look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6da6bcab-63da-4a7a-b93e-462b0a3bf327"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33b243ab-6fbc-4981-8aae-21a4fc87a620"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -176,6 +207,7 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
         m_User_move = m_User.FindAction("move", throwIfNotFound: true);
         m_User_jump = m_User.FindAction("jump", throwIfNotFound: true);
         m_User_look = m_User.FindAction("look", throwIfNotFound: true);
+        m_User_sprint = m_User.FindAction("sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +270,7 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
     private readonly InputAction m_User_move;
     private readonly InputAction m_User_jump;
     private readonly InputAction m_User_look;
+    private readonly InputAction m_User_sprint;
     public struct UserActions
     {
         private @Player_Input_Actions m_Wrapper;
@@ -245,6 +278,7 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
         public InputAction @move => m_Wrapper.m_User_move;
         public InputAction @jump => m_Wrapper.m_User_jump;
         public InputAction @look => m_Wrapper.m_User_look;
+        public InputAction @sprint => m_Wrapper.m_User_sprint;
         public InputActionMap Get() { return m_Wrapper.m_User; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +297,9 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                 @look.started -= m_Wrapper.m_UserActionsCallbackInterface.OnLook;
                 @look.performed -= m_Wrapper.m_UserActionsCallbackInterface.OnLook;
                 @look.canceled -= m_Wrapper.m_UserActionsCallbackInterface.OnLook;
+                @sprint.started -= m_Wrapper.m_UserActionsCallbackInterface.OnSprint;
+                @sprint.performed -= m_Wrapper.m_UserActionsCallbackInterface.OnSprint;
+                @sprint.canceled -= m_Wrapper.m_UserActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_UserActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +313,9 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                 @look.started += instance.OnLook;
                 @look.performed += instance.OnLook;
                 @look.canceled += instance.OnLook;
+                @sprint.started += instance.OnSprint;
+                @sprint.performed += instance.OnSprint;
+                @sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -285,5 +325,6 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

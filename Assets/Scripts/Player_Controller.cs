@@ -14,6 +14,7 @@ public class Player_Controller : MonoBehaviour {
         look = GetComponent<Mouse_Look>();
         
         playerInputActions.User.jump.performed += ctx => move.Jump();
+        playerInputActions.User.sprint.performed += ctx => move.Sprint();
 
     }
 

@@ -7,9 +7,10 @@ public class User_Movement : MonoBehaviour
     private CharacterController userController;
     private Vector3 userVelocity;
     private bool isGrounded;
-    [SerializeField] float userSpeed = 10.0f;
-    [SerializeField] float gravity = -9.8f;
-    [SerializeField] float jump_height = 2.4f;
+    private bool isSprinting;
+    private float userSpeed = 8.0f;
+    private float gravity = -16.8f; //was 9.8, but too floaty
+    private float jump_height = 2.4f;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,17 @@ public class User_Movement : MonoBehaviour
     public void Jump() {
         if(isGrounded) {
             userVelocity.y = Mathf.Sqrt(jump_height * -3.0f * gravity);
+        }
+    }
+
+    public void Sprint() {
+        isSprinting = !isSprinting;
+        if(isSprinting) {
+            userSpeed = 11.0f;
+        }
+
+        else {
+            userSpeed = 8.0f;
         }
     }
 }
