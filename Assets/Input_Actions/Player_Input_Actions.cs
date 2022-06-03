@@ -62,6 +62,15 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""join"",
+                    ""type"": ""Button"",
+                    ""id"": ""868963dc-cea7-4cc9-aa3d-49d930f4ef4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,11 +205,61 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                     ""action"": ""sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e234d187-8273-40fb-bcf6-6f827d8a5d40"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""join"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3ba1b00-d92b-4b07-bd2e-d4bfff483428"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""join"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // User
         m_User = asset.FindActionMap("User", throwIfNotFound: true);
@@ -208,6 +267,7 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
         m_User_jump = m_User.FindAction("jump", throwIfNotFound: true);
         m_User_look = m_User.FindAction("look", throwIfNotFound: true);
         m_User_sprint = m_User.FindAction("sprint", throwIfNotFound: true);
+        m_User_join = m_User.FindAction("join", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +331,7 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
     private readonly InputAction m_User_jump;
     private readonly InputAction m_User_look;
     private readonly InputAction m_User_sprint;
+    private readonly InputAction m_User_join;
     public struct UserActions
     {
         private @Player_Input_Actions m_Wrapper;
@@ -279,6 +340,7 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
         public InputAction @jump => m_Wrapper.m_User_jump;
         public InputAction @look => m_Wrapper.m_User_look;
         public InputAction @sprint => m_Wrapper.m_User_sprint;
+        public InputAction @join => m_Wrapper.m_User_join;
         public InputActionMap Get() { return m_Wrapper.m_User; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +362,9 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                 @sprint.started -= m_Wrapper.m_UserActionsCallbackInterface.OnSprint;
                 @sprint.performed -= m_Wrapper.m_UserActionsCallbackInterface.OnSprint;
                 @sprint.canceled -= m_Wrapper.m_UserActionsCallbackInterface.OnSprint;
+                @join.started -= m_Wrapper.m_UserActionsCallbackInterface.OnJoin;
+                @join.performed -= m_Wrapper.m_UserActionsCallbackInterface.OnJoin;
+                @join.canceled -= m_Wrapper.m_UserActionsCallbackInterface.OnJoin;
             }
             m_Wrapper.m_UserActionsCallbackInterface = instance;
             if (instance != null)
@@ -316,15 +381,37 @@ public partial class @Player_Input_Actions : IInputActionCollection2, IDisposabl
                 @sprint.started += instance.OnSprint;
                 @sprint.performed += instance.OnSprint;
                 @sprint.canceled += instance.OnSprint;
+                @join.started += instance.OnJoin;
+                @join.performed += instance.OnJoin;
+                @join.canceled += instance.OnJoin;
             }
         }
     }
     public UserActions @User => new UserActions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
     public interface IUserActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnJoin(InputAction.CallbackContext context);
     }
 }

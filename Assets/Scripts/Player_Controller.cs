@@ -3,27 +3,30 @@ using UnityEngine.InputSystem;
 
 public class Player_Controller : MonoBehaviour {
 
-    private Player_Input_Actions playerInputActions;
+    private InputActionAsset inputAsset;
+    private InputActionMap player;
+    
     private Mouse_Look look;
     private User_Movement move;
 
     private void Awake() {
-        playerInputActions = new Player_Input_Actions();
+        inputAsset = this.GetComponent<PlayerInput>().actions;
+        player = inputAsset.FindActionMap("User");
         
         move = GetComponent<User_Movement>();
         look = GetComponent<Mouse_Look>();
         
-        playerInputActions.User.jump.performed += ctx => move.Jump();
-        playerInputActions.User.sprint.performed += ctx => move.Sprint();
+        player.FindAction("jump").performed += ctx => move.Jump();
+        player.FindAction("sprint").performed += ctx => move.Sprint();
 
     }
 
     private void OnEnable() {
-        playerInputActions.Enable();
+        player.Enable();
     }
 
     private void OnDisable() {
-        playerInputActions.Disable();
+        player.Disable();
     }
 
     private void Start() {
@@ -32,16 +35,13 @@ public class Player_Controller : MonoBehaviour {
 
     private void Update() {
         
-        // if(playerInputActions.User.jump.triggered) {
-        //     Debug.Log("Jumped");
-        // }
     }
 
     void FixedUpdate() {
-        move.UserMovement(playerInputActions.User.move.ReadValue<Vector2>());
+        move.UserMovement(player.FindAction("move").ReadValue<Vector2>());
     }
 
-    private void LateUpdate() {
-        look.ProcessLook(playerInputActions.User.look.ReadValue<Vector2>());
+    void LateUpdate() {
+        look.ProcessLook(player.FindAction("look").ReadValue<Vector2>());
     }
 }
